@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="app">
+      <header class="app__header">
+        Nombre de séries répertoriées : <span id="series-count">3</span>
+      </header>
+
+      <div class="series-list">
+        <ul class="series-list__items">
+          <li class="series-list__item">
+            <p>
+              Le trône de fer - Américaine - (Game of Thrones) - Avril 2011 - 8
+              saisons - 73 épisodes
+            </p>
+          </li>
+          <!-- Nouveaux éléments ajoutés -->
+          <li class="series-list__item">
+            <p>
+              Stranger Things - Américaine - (Stranger Things) - Juillet 2016 -
+              4 saisons - 34 épisodes
+            </p>
+          </li>
+          <li class="series-list__item">
+            <p>
+              The Witcher - Américaine - (The Witcher) - Décembre 2019 - 2
+              saisons - 16 épisodes
+            </p>
+          </li>
+          <li class="series-list__item">
+            <p>
+              Black Mirror - Britannique - (Black Mirror) - Décembre 2011 - 5
+              saisons - 22 épisodes
+            </p>
+          </li>
+          
+        </ul>
+        <div class="series-list__actions">
+          <button
+            class="series-list__button series-list__button--add"
+            id="add-series"
+          >
+            Ajouter
+          </button>
+          <button
+            class="series-list__button series-list__button--remove"
+            id="remove-series"
+          >
+            Retirer
+          </button>
+        </div>
+      </div>
+
+      <div class="series-form">
+        <div class="series-form__title">Nouvelle série</div>
+        <form class="series-form__body">
+          <div class="series-form__section">
+            <p class="series-form__section-title">Création</p>
+            <label class="series-form__label">
+              <input type="radio" name="nationality" value="française" />
+              française
+            </label>
+            <label class="series-form__label">
+              <input type="radio" name="nationality" value="européenne" />
+              européenne
+            </label>
+            <label class="series-form__label">
+              <input type="radio" name="nationality" value="américaine" />
+              américaine
+            </label>
+            <label class="series-form__label">
+              <input type="radio" name="nationality" value="autre" />
+              autre
+            </label>
+          </div>
+
+          <div class="series-form__info">
+            <div class="series-form__field">
+              <label for="title-fr">Titre français</label>
+              <input type="text" id="title-fr" />
+            </div>
+            <div class="series-form__field">
+              <label for="title-original">Titre original</label>
+              <input type="text" id="title-original" />
+            </div>
+            <div class="series-form__infos">
+              <div class="series-form__field series-form__field--infos">
+                <label for="seasons">Saisons</label>
+                <input type="number" id="seasons" />
+              </div>
+              <div class="series-form__field series-form__field--infos">
+                <label for="episodes">Épisodes</label>
+                <input type="number" id="episodes" />
+              </div>
+              <div class="series-form__field series-form__field--infos">
+                <label for="first-broadcast">Date de première diffusion</label>
+                <input type="date" id="first-broadcast" />
+              </div>
+            </div>
+          </div>
+
+          <div class="series-form__actions">
+            <button
+              type="submit"
+              class="series-form__button series-form__button--validate"
+              id="validate-form"
+            >
+              Valider
+            </button>
+            <button
+              type="button"
+              class="series-form__button series-form__button--cancel"
+              id="cancel-form"
+            >
+              Annuler
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
