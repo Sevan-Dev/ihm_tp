@@ -10,18 +10,17 @@
   <body>
     <div class="app">
       <header class="app__header">
-        Nombre de séries répertoriées : <span id="series-count">3</span>
+        Nombre de séries répertoriées : <span id="div_series-count">3</span>
       </header>
 
       <div class="series-list">
-        <ul class="series-list__items">
+        <ul class="series-list__items" id="div_series-list">
           <li class="series-list__item">
             <p>
               Le trône de fer - Américaine - (Game of Thrones) - Avril 2011 - 8
               saisons - 73 épisodes
             </p>
           </li>
-          <!-- Nouveaux éléments ajoutés -->
           <li class="series-list__item">
             <p>
               Stranger Things - Américaine - (Stranger Things) - Juillet 2016 -
@@ -45,13 +44,13 @@
         <div class="series-list__actions">
           <button
             class="series-list__button series-list__button--add"
-            id="add-series"
+            id="btn-add-series"
           >
             Ajouter
           </button>
           <button
             class="series-list__button series-list__button--remove"
-            id="remove-series"
+            id="btn_remove-series"
           >
             Retirer
           </button>
@@ -64,19 +63,19 @@
           <div class="series-form__section">
             <p class="series-form__section-title">Création</p>
             <label class="series-form__label">
-              <input type="radio" name="nationality" value="française" />
+              <input id="radio_series-form__francaise" type="radio" name="nationality" value="française" />
               française
             </label>
             <label class="series-form__label">
-              <input type="radio" name="nationality" value="européenne" />
+              <input id="radio_series-form__europeenne" type="radio" name="nationality" value="européenne" />
               européenne
             </label>
             <label class="series-form__label">
-              <input type="radio" name="nationality" value="américaine" />
+              <input id="radio_series-form__americaine" type="radio" name="nationality" value="américaine" />
               américaine
             </label>
             <label class="series-form__label">
-              <input type="radio" name="nationality" value="autre" />
+              <input id="radio_series-form__autre" type="radio" name="nationality" value="autre" />
               autre
             </label>
           </div>
@@ -84,24 +83,24 @@
           <div class="series-form__info">
             <div class="series-form__field">
               <label for="title-fr">Titre français</label>
-              <input type="text" id="title-fr" />
+              <input type="text" id="edt_title-fr" />
             </div>
             <div class="series-form__field">
               <label for="title-original">Titre original</label>
-              <input type="text" id="title-original" />
+              <input type="text" id="edt_title-original" />
             </div>
             <div class="series-form__infos">
               <div class="series-form__field series-form__field--infos">
                 <label for="seasons">Saisons</label>
-                <input type="number" id="seasons" />
+                <input type="number" id="edt_seasons" />
               </div>
               <div class="series-form__field series-form__field--infos">
                 <label for="episodes">Épisodes</label>
-                <input type="number" id="episodes" />
+                <input type="number" id="edt_episodes" />
               </div>
               <div class="series-form__field series-form__field--infos">
                 <label for="first-broadcast">Date de première diffusion</label>
-                <input type="date" id="first-broadcast" />
+                <input type="date" id="edt_first-broadcast" />
               </div>
             </div>
           </div>
@@ -110,14 +109,14 @@
             <button
               type="submit"
               class="series-form__button series-form__button--validate"
-              id="validate-form"
+              id="btn_validate-form"
             >
               Valider
             </button>
             <button
               type="button"
               class="series-form__button series-form__button--cancel"
-              id="cancel-form"
+              id="btn_cancel-form"
             >
               Annuler
             </button>
@@ -125,5 +124,6 @@
         </form>
       </div>
     </div>
+    <script type="module" src ="./src/tpnote.ts"></script>
   </body>
 </html>
