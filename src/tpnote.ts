@@ -131,17 +131,6 @@ export class FormInput {
     });
   }
 
-  private supprimer(): void {
-    this.btnRemoveSeries.addEventListener("click", () => {
-      const liste = this.divSeriesList;
-      const noLigne: number = liste.selectedIndex;
-      if (noLigne > -1) {
-        liste.remove(noLigne);
-        this.counterMoins();
-      }
-    });
-  }
-
   private ajouterSaisie(): void {
     this.btnValidationSeries.addEventListener("click", (event) => {
       event.preventDefault();
@@ -212,14 +201,24 @@ export class FormInput {
     });
   }
 
-  private popup(): void {
+  private supprimer(): void {
     this.btnRemoveSeries.addEventListener("click", () => {
       this.popup();
     });
+  }
+  private popup(): void {
+    this.btnRemoveSeries.addEventListener("click", () => {});
 
     this.divSeriesList.style.pointerEvents = "none";
     this.divPopup.style.display = "block";
+
     this.btnPopupConfirmer.addEventListener("click", () => {
+      const liste = this.divSeriesList;
+      const noLigne: number = liste.selectedIndex;
+      if (noLigne > -1) {
+        liste.remove(noLigne);
+        this.counterMoins();
+      }
       this.divPopup.style.display = "none";
     });
     this.btnPopupAnnuler.addEventListener("click", () => {
