@@ -170,12 +170,20 @@ export class FormInput {
         erreur += "Date de première diffusion à renseigner\n";
       }
 
-      if (nbseasons === "" || 0 > Number(nbseasons)) {
+      if (nbseasons === "" ) {
         erreur += "Nombre de saisons à renseigner\n";
+      }else if(1 > Number(nbseasons)){
+        erreur += "Nombre de saisons inferieur a 1\n";
+
       }
-      if (nbepisodes === "" || 0 > Number(nbepisodes)) {
-        erreur += "Nombre d'épisodes à renseigner\n";
+      if (nbepisodes === "" ) {
+        erreur += "Nombre d'episodes à renseigner\n";
+      }else if(1 > Number(nbepisodes)){
+        erreur += "Nombre d'episodes à 1\n";
+
       }
+      
+      
 
       if (erreur.length === 0) {
         this.counterPlus();
