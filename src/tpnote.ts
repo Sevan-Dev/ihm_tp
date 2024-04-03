@@ -1,4 +1,8 @@
 export class FormInput {
+  divApp: HTMLElement;
+  btnPopupAnnuler: HTMLInputElement;
+  btnPopupConfirmer: HTMLInputElement;
+  divPopup: HTMLElement;
   divSeriesCount: HTMLElement;
   btnAddSeries: HTMLInputElement;
   btnRemoveSeries: HTMLInputElement;
@@ -14,12 +18,19 @@ export class FormInput {
   edtEpisodes: HTMLInputElement;
   edtFirstBroadcast: HTMLInputElement;
   divSeriesForm: HTMLElement;
-  divSeriesList: HTMLElement;
-  divSeriesElements: HTMLElement;
+  divSeriesList: HTMLSelectElement;
+  divSeriesListContainer: HTMLElement;
   count: number = 0;
-  selectedElement: boolean = false;
 
   constructor() {
+    this.divApp = document.getElementById("app") as HTMLElement;
+    this.btnPopupConfirmer = document.getElementById(
+      "series-popup__button--confirmer"
+    ) as HTMLInputElement;
+    this.btnPopupAnnuler = document.getElementById(
+      "series-popup__button--annuler"
+    ) as HTMLInputElement;
+    this.divPopup = document.getElementById("div_popup") as HTMLElement;
     this.divSeriesCount = document.getElementById(
       "div_series-count"
     ) as HTMLElement;
@@ -66,17 +77,17 @@ export class FormInput {
       "[id=series-form]"
     ) as HTMLElement;
     this.divSeriesList = document.querySelector(
-      "[id=series-list]"
-    ) as HTMLElement;
-    this.divSeriesElements = document.querySelector(
+      "[id=divSeriesList]"
+    ) as HTMLSelectElement;
+    this.divSeriesListContainer = document.querySelector(
       "[id=div_series-list]"
     ) as HTMLElement;
 
-    console.log(this.divSeriesElements);
+    console.log(this.divSeriesList);
 
     this.divSeriesForm.style.display = "none";
     this.ouvrirFormAjouter();
-    this.ajouterVideo();
+    this.ajouterSaisie();
     this.annulerSaisie();
     this.supprimer();
   }
@@ -84,14 +95,57 @@ export class FormInput {
   private ouvrirFormAjouter(): void {
     this.btnAddSeries.addEventListener("click", () => {
       this.divSeriesForm.style.display = "flex";
-      this.divSeriesList.style.pointerEvents = 'none';
+      this.divSeriesListContainer.style.pointerEvents = "none";
     });
   }
 
-  private ajouterVideo(): void {
+  private counterPlus(): void {
+    let counter = (this.count += 1);
+    this.divSeriesCount.innerHTML = counter.toString();
+  }
+  private counterMoins(): void {
+    let counter = (this.count -= 1);
+    this.divSeriesCount.innerHTML = counter.toString();
+  }
+
+  private fermerForm(): void {
+    const inputFields = this.divSeriesForm.querySelectorAll("input");
+    inputFields.forEach((input) => {
+      if (
+        input.type === "text" ||
+        input.type === "number" ||
+        input.type === "date"
+      ) {
+        input.value = "";
+      } else if (input.type === "radio") {
+        input.checked = false;
+      }
+    });
+
+    this.divSeriesForm.style.display = "none";
+  }
+  private annulerSaisie(): void {
+    this.btnCancelSeries.addEventListener("click", () => {
+      this.fermerForm();
+      this.divSeriesList.style.pointerEvents = "auto";
+    });
+  }
+
+  private supprimer(): void {
+    this.btnRemoveSeries.addEventListener("click", () => {
+      const liste = this.divSeriesList;
+      const noLigne: number = liste.selectedIndex;
+      if (noLigne > -1) {
+        liste.remove(noLigne);
+        this.counterMoins();
+      }
+    });
+  }
+
+  private ajouterSaisie(): void {
     this.btnValidationSeries.addEventListener("click", (event) => {
       event.preventDefault();
-      this.divSeriesList.style.pointerEvents = 'auto';
+      this.divSeriesListContainer.style.pointerEvents = "auto";
 
       let nationality = "";
       if (this.radioFrancaise.checked) {
@@ -106,7 +160,7 @@ export class FormInput {
 
       const titreFr: string = this.edtTitleFr.value.trim();
       const titreOr: string = this.edtTitreOr.value.trim();
-      const dtbc: Date = this.edtFirstBroadcast.value;
+      const dtbc: Date = this.edtFirstBroadcast.valueAsDate;
       const nbseasons: number = this.edtSeasons.valueAsNumber;
       const nbepisodes: number = this.edtEpisodes.valueAsNumber;
 
@@ -132,25 +186,25 @@ export class FormInput {
 
       if (erreur.length === 0) {
         this.counterPlus();
-        const liste = this.divSeriesElements;
-        const listItem = document.createElement("li");
-        listItem.textContent =
+        const liste = this.divSeriesList;
+        const opt = new Option(
           titreFr +
-          " - " +
-          nationality +
-          " - " +
-          "( " +
-          titreOr +
-          " )" +
-          " - " +
-          monthYear +
-          " - " +
-          nbseasons +
-          " saisons" +
-          " - " +
-          nbepisodes +
-          " épisodes";
-        liste.appendChild(listItem);
+            " - " +
+            nationality +
+            " - " +
+            "( " +
+            titreOr +
+            " )" +
+            " - " +
+            monthYear +
+            " - " +
+            nbseasons +
+            " saisons" +
+            " - " +
+            nbepisodes +
+            " épisodes"
+        );
+        liste.options.add(opt);
         this.fermerForm();
       } else {
         alert("Erreur dans le formulaire " + erreur);
@@ -158,52 +212,20 @@ export class FormInput {
     });
   }
 
-  private counterPlus(): void {
-    let counter = (this.count += 1);
-    this.divSeriesCount.innerHTML = counter.toString();
-  }
-  private counterMoins(): void {
-    let counter = (this.count -= 1);
-    this.divSeriesCount.innerHTML = counter.toString();
-  }
-
-  private fermerForm(): void {
-    const inputFields = this.divSeriesForm.querySelectorAll("input");
-    inputFields.forEach((input) => {
-      if (
-        input.type === "text" ||
-        input.type === "number" ||
-        input.type === "date"
-      ) {
-        input.value = ""; 
-      } else if (input.type === "radio") {
-        input.checked = false;
-      }
+  private popup(): void {
+    this.btnRemoveSeries.addEventListener("click", () => {
+      this.popup();
     });
 
-    this.divSeriesForm.style.display = "none";
-  }
-  private annulerSaisie(): void {
-    this.btnCancelSeries.addEventListener("click", () => {
-      this.fermerForm();
-      this.divSeriesList.style.pointerEvents = 'auto';
-
+    this.divSeriesList.style.pointerEvents = "none";
+    this.divPopup.style.display = "block";
+    this.btnPopupConfirmer.addEventListener("click", () => {
+      this.divPopup.style.display = "none";
+    });
+    this.btnPopupAnnuler.addEventListener("click", () => {
+      this.divPopup.style.display = "none";
     });
   }
-
-  private supprimer(): void {
-    this.divSeriesElements.addEventListener("click", (event) => {
-        const targetElement = event.target;
-        if (targetElement instanceof HTMLElement && targetElement.tagName === 'LI') {
-            targetElement.style.backgroundColor = "red";
-            this.btnRemoveSeries.addEventListener("click", () => {
-                targetElement.remove();
-                this.counterMoins();
-            });
-        }
-    });
-}
-
 }
 
 new FormInput();

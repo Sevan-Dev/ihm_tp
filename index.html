@@ -5,20 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./src/style.css" />
-    <title>Document</title>
+    <title>Liste Series</title>
   </head>
   <body>
-    <div class="app">
+    <div id="app" class="app">
       <header class="app__header">
         Nombre de séries répertoriées : <span id="div_series-count">0</span>
       </header>
 
-      <div id="series-list" class="series-list">
-        <ul class="series-list__items" id="div_series-list">
+      <div id="div_popup">
+        <p>Voulez vous vraiment supprimer cette serie de la liste ?</p>
+        <button class="series-popup__button--confirmer">Confirmer</button>
+        <button class="series-popup__button--annuler">Annuler</button>
+      </div>
 
-          </li>
-          
-        </ul>
+      <div id="div_series-list" class="series-list">
+        <select name="liste" size="15" id="divSeriesList"></select>
         <div class="series-list__actions">
           <button
             class="series-list__button series-list__button--add"
@@ -41,19 +43,39 @@
           <div class="series-form__section">
             <p class="series-form__section-title">Création</p>
             <label class="series-form__label">
-              <input id="radio_series-form__francaise" type="radio" name="nationality" value="française" />
+              <input
+                id="radio_series-form__francaise"
+                type="radio"
+                name="nationality"
+                value="française"
+              />
               française
             </label>
             <label class="series-form__label">
-              <input id="radio_series-form__europeenne" type="radio" name="nationality" value="européenne" />
+              <input
+                id="radio_series-form__europeenne"
+                type="radio"
+                name="nationality"
+                value="européenne"
+              />
               européenne
             </label>
             <label class="series-form__label">
-              <input id="radio_series-form__americaine" type="radio" name="nationality" value="américaine" />
+              <input
+                id="radio_series-form__americaine"
+                type="radio"
+                name="nationality"
+                value="américaine"
+              />
               américaine
             </label>
             <label class="series-form__label">
-              <input id="radio_series-form__autre" type="radio" name="nationality" value="autre" />
+              <input
+                id="radio_series-form__autre"
+                type="radio"
+                name="nationality"
+                value="autre"
+              />
               autre
             </label>
           </div>
@@ -102,6 +124,6 @@
         </form>
       </div>
     </div>
-    <script type="module" src ="./src/tpnote.ts"></script>
+    <script type="module" src="./src/tpnote.ts"></script>
   </body>
 </html>
