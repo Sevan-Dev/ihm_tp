@@ -84,12 +84,14 @@ export class FormInput {
   private ouvrirFormAjouter(): void {
     this.btnAddSeries.addEventListener("click", () => {
       this.divSeriesForm.style.display = "flex";
+      this.divSeriesList.style.pointerEvents = 'none';
     });
   }
 
   private ajouterVideo(): void {
     this.btnValidationSeries.addEventListener("click", (event) => {
       event.preventDefault();
+      this.divSeriesList.style.pointerEvents = 'auto';
 
       let nationality = "";
       if (this.radioFrancaise.checked) {
@@ -184,6 +186,8 @@ export class FormInput {
   private annulerSaisie(): void {
     this.btnCancelSeries.addEventListener("click", () => {
       this.fermerForm();
+      this.divSeriesList.style.pointerEvents = 'auto';
+
     });
   }
 
@@ -191,7 +195,7 @@ export class FormInput {
     this.divSeriesElements.addEventListener("click", (event) => {
         const targetElement = event.target;
         if (targetElement instanceof HTMLElement && targetElement.tagName === 'LI') {
-            targetElement.style.backgroundColor = "yellow";
+            targetElement.style.backgroundColor = "red";
             this.btnRemoveSeries.addEventListener("click", () => {
                 targetElement.remove();
                 this.counterMoins();
