@@ -127,7 +127,7 @@ export class FormInput {
   private annulerSaisie(): void {
     this.btnCancelSeries.addEventListener("click", () => {
       this.fermerForm();
-      this.divSeriesList.style.pointerEvents = "auto";
+      this.divSeriesListContainer.style.pointerEvents = "auto";
     });
   }
 
@@ -135,6 +135,20 @@ export class FormInput {
     this.btnValidationSeries.addEventListener("click", (event) => {
       event.preventDefault();
       this.divSeriesListContainer.style.pointerEvents = "auto";
+
+      const titreFr: string = this.edtTitleFr.value.trim();
+      const titreOr: string = this.edtTitreOr.value.trim();
+      const dtbc: Date = this.edtFirstBroadcast.valueAsDate;
+      const nbseasons: string = this.edtSeasons.value;
+      const nbepisodes: string = this.edtEpisodes.value;
+
+      const dateValue = new Date(dtbc);
+
+      const month = dateValue.toLocaleString("default", { month: "long" });
+      const year = dateValue.getFullYear();
+      const monthYear = `${month} ${year}`;
+
+      let erreur = "";
 
       let nationality = "";
       if (this.radioFrancaise.checked) {
@@ -145,32 +159,22 @@ export class FormInput {
         nationality = this.radioAmericaine.value;
       } else if (this.radioAutre.checked) {
         nationality = this.radioAutre.value;
+      } else {
+        erreur += "Nationnalitée à renseigner \n";
       }
 
-      const titreFr: string = this.edtTitleFr.value.trim();
-      const titreOr: string = this.edtTitreOr.value.trim();
-      const dtbc: Date = this.edtFirstBroadcast.valueAsDate;
-      const nbseasons: number = this.edtSeasons.valueAsNumber;
-      const nbepisodes: number = this.edtEpisodes.valueAsNumber;
-
-      const dateValue = new Date(dtbc);
-
-      const month = dateValue.toLocaleString("default", { month: "long" });
-      const year = dateValue.getFullYear();
-      const monthYear = `${month} ${year}`;
-
-      let erreur = "";
       if (titreFr.length === 0) {
-        erreur += "Titre français à renseigner<br>";
+        erreur += "Titre français à renseigner\n";
       }
       if (dtbc === null) {
-        erreur += "Date de première diffusion à renseigner</br>";
+        erreur += "Date de première diffusion à renseigner\n";
       }
-      if (nbseasons === null) {
-        erreur += "Nombre de saisons à renseigner<br>";
+
+      if (nbseasons === "" || 0 > Number(nbseasons)) {
+        erreur += "Nombre de saisons à renseigner\n";
       }
-      if (nbepisodes === null) {
-        erreur += "Nombre d'épisodes à renseigner<br>";
+      if (nbepisodes === "" || 0 > Number(nbepisodes)) {
+        erreur += "Nombre d'épisodes à renseigner\n";
       }
 
       if (erreur.length === 0) {
@@ -196,14 +200,18 @@ export class FormInput {
         liste.options.add(opt);
         this.fermerForm();
       } else {
-        alert("Erreur dans le formulaire " + erreur);
+        alert("Erreur dans le formulaire : \n" + erreur);
       }
     });
   }
 
   private supprimer(): void {
     this.btnRemoveSeries.addEventListener("click", () => {
-      this.popup();
+      const liste = this.divSeriesList;
+
+      if (liste.selectedIndex != -1) {
+        this.popup();
+      }
     });
   }
   private popup(): void {
@@ -219,10 +227,12 @@ export class FormInput {
         liste.remove(noLigne);
         this.counterMoins();
       }
+      this.divSeriesList.style.pointerEvents = "auto";
       this.divPopup.style.display = "none";
     });
     this.btnPopupAnnuler.addEventListener("click", () => {
       this.divPopup.style.display = "none";
+      this.divSeriesList.style.pointerEvents = "auto";
     });
   }
 }
