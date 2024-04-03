@@ -20,7 +20,7 @@
 .series-list {
   background-color: #fff;
   width: 70%;
-  padding: 0 0 1.5rem 1.5rem;
+  padding: 0 0 3rem 1.5rem;
   position: relative;
 
 }
@@ -29,12 +29,19 @@
   display: flex;
   flex-direction: column;
   gap: 7px;
+  width: 100%;
+}
+.series-list__item:hover{
+  background-color: #969696;
 }
 
 .series-list__items li {
   list-style: none;
+  cursor: pointer;
 }
-
+.series-list__items li:hover {
+  background-color: #bbbbbb;
+}
 .series-list__actions {
   display: flex;
   gap: 1rem;
